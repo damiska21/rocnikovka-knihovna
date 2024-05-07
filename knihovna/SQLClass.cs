@@ -79,13 +79,14 @@ namespace knihovna
             BindingList<Kniha> list = new BindingList<Kniha>();
             SQLiteCommand prikaz = new SQLiteCommand(Connection);
             Connect();
-            prikaz.CommandText = "SELECT * FROM knihy WHERE ZakaznikID='"+ZakaznikID+"';";
+            MessageBox.Show(ZakaznikID.ToString());
+            prikaz.CommandText = "SELECT * FROM knihy WHERE ZakaznikID = 1;";
             using (var reader = prikaz.ExecuteReader()) { 
                 while (reader.Read()) {
-                    list.Add(new Kniha(Convert.ToInt32(reader["KnihaID"]), (string)reader["nazev"], Convert.ToInt32(reader["AutorID"]), Convert.ToInt32(reader["ZanrID"]), (bool)reader["pujcena"], Convert.ToInt32(reader["ZakaznikID"])));
+                    list.Add(new Kniha(Convert.ToInt32(reader["KnihaID"]), (string)reader["nazev"], Convert.ToInt32(reader["AutorID"]), Convert.ToInt32(reader["ZanrID"]), (bool)reader["pujcena"], Convert.ToInt32(reader["ZakaznikID"]) ));
                 }
-                Disconnect();
-                return list;
+            Disconnect();MessageBox.Show("negr si");
+            return list;
             }
         }
         public static void VytvorDatabazi()
@@ -95,7 +96,7 @@ namespace knihovna
                 Connect();
                 SQLiteCommand prikaz = new SQLiteCommand(Connection);
 
-                prikaz.CommandText = "DROP TABLE IF EXISTS knihy";//id, nazev, id_autora, id_zanr, pujcena, id_zakaznik(pokud je půjčena)
+                prikaz.CommandText = "DROP TABLE IF EXISTS knihy;";//id, nazev, id_autora, id_zanr, pujcena, id_zakaznik(pokud je půjčena)
                 prikaz.ExecuteNonQuery();
                 prikaz.CommandText = "CREATE TABLE knihy(KnihaID INTEGER PRIMARY KEY AUTOINCREMENT, nazev VARCHAR(15), AutorID INTEGER, ZanrID INTEGER, pujcena BOOLEAN, ZakaznikID INTEGER);";
                 prikaz.ExecuteNonQuery();
@@ -107,7 +108,7 @@ namespace knihovna
                 prikaz.ExecuteNonQuery();
 
 
-                prikaz.CommandText = "DROP TABLE IF EXISTS autori";//id, jmeno, prijmeni
+                prikaz.CommandText = "DROP TABLE IF EXISTS autori;";//id, jmeno, prijmeni
                 prikaz.ExecuteNonQuery();
                 prikaz.CommandText = "CREATE TABLE autori(AutorID INTEGER PRIMARY KEY AUTOINCREMENT, jmeno VARCHAR(15), prijmeni VARCHAR(15));";
                 prikaz.ExecuteNonQuery();
@@ -119,7 +120,7 @@ namespace knihovna
                 prikaz.ExecuteNonQuery();
 
 
-                prikaz.CommandText = "DROP TABLE IF EXISTS zanr";//id, nazev
+                prikaz.CommandText = "DROP TABLE IF EXISTS zanr;";//id, nazev
                 prikaz.ExecuteNonQuery();
                 prikaz.CommandText = "CREATE TABLE zanr(ZanrID INTEGER PRIMARY KEY AUTOINCREMENT, nazev VARCHAR(15));";
                 prikaz.ExecuteNonQuery();
@@ -129,7 +130,7 @@ namespace knihovna
                 prikaz.ExecuteNonQuery();
 
 
-                prikaz.CommandText = "DROP TABLE IF EXISTS zakaznici";//id, jmeno, prijmeni
+                prikaz.CommandText = "DROP TABLE IF EXISTS zakaznici;";//id, jmeno, prijmeni
                 prikaz.ExecuteNonQuery();
                 prikaz.CommandText = "CREATE TABLE zakaznici(ZakaznikID INTEGER PRIMARY KEY AUTOINCREMENT, jmeno VARCHAR(15), prijmeni VARCHAR(15));";
                 prikaz.ExecuteNonQuery();

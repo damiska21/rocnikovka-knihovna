@@ -12,13 +12,11 @@ namespace knihovna
 {
     public partial class PujceniForm : Form
     {
-        SQLClass SQLClass = null;
         public PujceniForm()
         {
             InitializeComponent();
-            SQLClass = new SQLClass();
         }
-
+        BindingList<Kniha> bb = new BindingList<Kniha>();
         //vyhledat zákazníka
         private void button1_Click(object sender, EventArgs e)
         {
