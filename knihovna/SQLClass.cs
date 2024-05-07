@@ -70,22 +70,33 @@ namespace knihovna
                 prikaz.CommandText = "SELECT * FROM zakaznici WHERE" + command+";";
                 using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) {exitString[0] = (string)reader["jmeno"]; exitString[1] = (string)reader["prijmeni"]; exitString[2] = Convert.ToInt64(reader["ZakaznikID"]).ToString();} }
                 Disconnect();
+
                 return exitString;
             }
             catch (Exception ex) { MessageBox.Show(ex.Message);return null; }
+        }
+        public static void KnihaZakaznikEdit(int KnihaID, int ZakaznikID)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                prikaz.CommandText = "UPDATE knihy SET ZakaznikID = " + ZakaznikID + " WHERE KnihaID = " + KnihaID + ";";
+                prikaz.ExecuteNonQuery();
+                Disconnect();
+            }catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
         public static BindingList<Kniha> FindKniha(int ZakaznikID)
         {
             BindingList<Kniha> list = new BindingList<Kniha>();
             SQLiteCommand prikaz = new SQLiteCommand(Connection);
-            Connect();
-            MessageBox.Show(ZakaznikID.ToString());
+            Connect();  
             prikaz.CommandText = "SELECT * FROM knihy WHERE ZakaznikID = 1;";
             using (var reader = prikaz.ExecuteReader()) { 
                 while (reader.Read()) {
                     list.Add(new Kniha(Convert.ToInt32(reader["KnihaID"]), (string)reader["nazev"], Convert.ToInt32(reader["AutorID"]), Convert.ToInt32(reader["ZanrID"]), (bool)reader["pujcena"], Convert.ToInt32(reader["ZakaznikID"]) ));
                 }
-            Disconnect();MessageBox.Show("negr si");
+            Disconnect();
             return list;
             }
         }
@@ -100,7 +111,7 @@ namespace knihovna
                 prikaz.ExecuteNonQuery();
                 prikaz.CommandText = "CREATE TABLE knihy(KnihaID INTEGER PRIMARY KEY AUTOINCREMENT, nazev VARCHAR(15), AutorID INTEGER, ZanrID INTEGER, pujcena BOOLEAN, ZakaznikID INTEGER);";
                 prikaz.ExecuteNonQuery();
-                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, pujcena, ZakaznikID) VALUES('Zaklinac', 1, 1, false, 3);";
+                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, pujcena, ZakaznikID) VALUES('Zaklinac', 1, 1, false, 1);";
                 prikaz.ExecuteNonQuery();
                 prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, pujcena, ZakaznikID) VALUES('Harry Potter a kamen mudrcu', 2, 1, false, 1);";
                 prikaz.ExecuteNonQuery();

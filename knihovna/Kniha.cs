@@ -9,12 +9,12 @@ namespace knihovna
 {
     internal class Kniha
     {
-        public int KnihaID;
-        public string nazev;
-        public int AutorID;
-        public int ZanrID;
-        public bool pujcena;
-        public int ZakaznikID;
+        public int KnihaID { get; set; }
+        public string nazev { get; set; }
+        public int AutorID { get; set; }
+        public int ZanrID { get; set; }
+        public bool pujcena { get; set; }
+        public int ZakaznikID { get; set; }
         public Kniha(int KnihaID, string nazev, int AutorID, int ZanrID, bool pujcena, int ZakaznikID) { 
             this.KnihaID = KnihaID;
             this.nazev = nazev;
