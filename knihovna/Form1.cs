@@ -26,5 +26,12 @@ namespace knihovna
         {
             SQLClass.VytvorDatabazi();
         }
+
+        //půjčit/vrátit
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PujceniForm pujceniForm = new PujceniForm();
+            pujceniForm.Show();
+        }
     }
 }
