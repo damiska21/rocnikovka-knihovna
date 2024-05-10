@@ -80,3 +80,4 @@ D:\programko\h\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.csproj.CoreCompil
 D:\programko\h\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.csproj.CopyComplete
 D:\programko\h\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.exe
 D:\programko\h\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.pdb
+D:\programko\h\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.ShowTableForm.resources

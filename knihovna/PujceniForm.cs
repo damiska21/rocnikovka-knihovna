@@ -33,8 +33,8 @@ namespace knihovna
         //vrátit knihu
         private void button2_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show(dataGridView2.CurrentCell.RowIndex.ToString());
-            SQLClass.KnihaZakaznikEdit(bb[(dataGridView1.CurrentCell.RowIndex + 1)].KnihaID, -1);
+            MessageBox.Show(dataGridView2.CurrentCell.RowIndex.ToString());
+            SQLClass.KnihaZakaznikEdit(bb[(dataGridView2.CurrentCell.RowIndex)].KnihaID, -1);
             MessageBox.Show("Kniha úspěšně navrácena!");
             bb.RemoveAt(dataGridView2.CurrentCell.RowIndex);
         }
@@ -65,7 +65,7 @@ namespace knihovna
         //půjčit knihu
         private void button4_Click(object sender, EventArgs e)
         {
-            SQLClass.KnihaZakaznikEdit(ee[(dataGridView1.CurrentCell.RowIndex + 1)].KnihaID, Convert.ToInt32(textBox5.Text));
+            SQLClass.KnihaZakaznikEdit(ee[(dataGridView1.CurrentCell.RowIndex)].KnihaID, Convert.ToInt32(textBox5.Text));
             MessageBox.Show("Kniha úspěšně půjčena!");
         }
     }

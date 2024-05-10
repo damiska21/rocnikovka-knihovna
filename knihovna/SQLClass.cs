@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.ComponentModel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.Remoting.Messaging;
 
 namespace knihovna
 {
@@ -144,6 +145,10 @@ namespace knihovna
                     command += " AND ";
                 }
                 command += " nazev='" + nazev + "'";
+            }else
+            {
+                //tohle je na vypsání celý tabulky, přišlo mi to nejsnazší
+                command += " nazev!='" + nazev + "'";
             }
             if (AutorID != -1)
             {
@@ -183,6 +188,54 @@ namespace knihovna
                 }
             }
             catch { MessageBox.Show("Žádná kniha nebyla nalezena");}
+            return list;
+        }
+        public static BindingList<Zakaznik> ListZakaznik()
+        {
+            Connect();
+            BindingList<Zakaznik> list = new BindingList<Zakaznik>();
+            SQLiteCommand prikaz = new SQLiteCommand(Connection);
+            prikaz.CommandText = "SELECT * FROM zakaznici";
+            using (var reader = prikaz.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    list.Add(new Zakaznik(Convert.ToInt32(reader["ZakaznikID"]), (string)reader["jmeno"], (string)reader["prijmeni"]));
+                }
+                Disconnect();
+            }
+            return list;
+        }
+        public static BindingList<Autor> ListAutor()
+        {
+            Connect();
+            BindingList<Autor> list = new BindingList<Autor>();
+            SQLiteCommand prikaz = new SQLiteCommand(Connection);
+            prikaz.CommandText = "SELECT * FROM autori";
+            using (var reader = prikaz.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    list.Add(new Autor(Convert.ToInt32(reader["AutorID"]), (string)reader["jmeno"], (string)reader["prijmeni"]));
+                }
+                Disconnect();
+            }
+            return list;
+        }
+        public static BindingList<Zanr> ListZanr()
+        {
+            Connect();
+            BindingList<Zanr> list = new BindingList<Zanr>();
+            SQLiteCommand prikaz = new SQLiteCommand(Connection);
+            prikaz.CommandText = "SELECT * FROM zanr";
+            using (var reader = prikaz.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    list.Add(new Zanr(Convert.ToInt32(reader["ZanrID"]), (string)reader["nazev"]));
+                }
+                Disconnect();
+            }
             return list;
         }
         public static void VytvorDatabazi()

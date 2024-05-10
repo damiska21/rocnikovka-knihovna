@@ -33,5 +33,11 @@ namespace knihovna
             PujceniForm pujceniForm = new PujceniForm();
             pujceniForm.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ShowTableForm showTableForm = new ShowTableForm();
+            showTableForm.Show();
+        }
     }
 }

@@ -130,7 +130,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.Size = new System.Drawing.Size(590, 136);
+            this.dataGridView2.Size = new System.Drawing.Size(577, 136);
             this.dataGridView2.TabIndex = 10;
             // 
             // label4
@@ -145,10 +145,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(614, 104);
+            this.button2.Location = new System.Drawing.Point(601, 104);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 137);
+            this.button2.Size = new System.Drawing.Size(95, 137);
             this.button2.TabIndex = 12;
             this.button2.Text = "Navrátit označenou knihu";
             this.button2.UseVisualStyleBackColor = true;
@@ -156,7 +156,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(16, 272);
+            this.textBox1.Location = new System.Drawing.Point(16, 292);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(121, 22);
@@ -164,7 +164,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(145, 272);
+            this.textBox2.Location = new System.Drawing.Point(145, 292);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(121, 22);
@@ -172,7 +172,7 @@
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(274, 272);
+            this.textBox6.Location = new System.Drawing.Point(274, 292);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(121, 22);
@@ -180,7 +180,7 @@
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(403, 272);
+            this.textBox7.Location = new System.Drawing.Point(403, 292);
             this.textBox7.Margin = new System.Windows.Forms.Padding(4);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(121, 22);
@@ -188,7 +188,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(532, 269);
+            this.button3.Location = new System.Drawing.Point(532, 289);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(164, 28);
@@ -200,7 +200,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(40, 252);
+            this.label5.Location = new System.Drawing.Point(40, 272);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 16);
@@ -210,7 +210,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(185, 252);
+            this.label6.Location = new System.Drawing.Point(185, 272);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(46, 16);
@@ -220,7 +220,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(313, 252);
+            this.label7.Location = new System.Drawing.Point(313, 272);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 16);
@@ -230,7 +230,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(443, 252);
+            this.label8.Location = new System.Drawing.Point(443, 272);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(34, 16);
@@ -239,7 +239,7 @@
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(274, 302);
+            this.textBox8.Location = new System.Drawing.Point(274, 322);
             this.textBox8.Margin = new System.Windows.Forms.Padding(4);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(121, 22);
@@ -250,23 +250,23 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 332);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 352);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(590, 136);
+            this.dataGridView1.Size = new System.Drawing.Size(577, 136);
             this.dataGridView1.TabIndex = 23;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(614, 332);
+            this.button4.Location = new System.Drawing.Point(601, 352);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(82, 137);
+            this.button4.Size = new System.Drawing.Size(95, 137);
             this.button4.TabIndex = 24;
-            this.button4.Text = "Půjčit označenou knihu";
+            this.button4.Text = "Půjčit označenou knihu výše označenému uživateli";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
