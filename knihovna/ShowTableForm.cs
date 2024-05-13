@@ -42,5 +42,25 @@ namespace knihovna
                     break;
             }
         }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var b = dataGridView1.Rows[e.RowIndex];
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0:
+                    SQLClass.ZmenZakaznika(b.Cells[1].Value.ToString(), b.Cells[2].Value.ToString(), Convert.ToInt32(b.Cells[0].Value));
+                    break;
+                case 1:
+                    SQLClass.ZmenKnihu(b.Cells[1].Value.ToString(), Convert.ToInt32(b.Cells[2].Value), Convert.ToInt32(b.Cells[0].Value), Convert.ToInt32(b.Cells[4].Value), Convert.ToInt32(b.Cells[3].Value));
+                    break;
+                case 2:
+                    SQLClass.ZmenAutora(b.Cells[1].Value.ToString(), b.Cells[2].Value.ToString(), Convert.ToInt32(b.Cells[0].Value));
+                    break;
+                case 3:
+                    SQLClass.ZmenZanr(b.Cells[1].Value.ToString(), Convert.ToInt32(b.Cells[0].Value));
+                    break;
+            }
+        }
     }
 }

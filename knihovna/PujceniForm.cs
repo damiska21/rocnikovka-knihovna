@@ -44,8 +44,8 @@ namespace knihovna
         {
             int AutorID = -1;
             int ZanrID = -1;
-            //hledání autora 6 8
-            AutorID = SQLClass.FindAutorByName(textBox6.Text, textBox8.Text);
+            //hledání autora 6 
+            AutorID = SQLClass.FindAutorByName(textBox6.Text);
             
             //zanr 7
             if (textBox7.Text.Length >2)

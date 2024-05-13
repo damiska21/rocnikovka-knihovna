@@ -88,7 +88,7 @@ namespace knihovna
                 Disconnect();
             }catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
-        public static int FindAutorByName(string jmeno, string prijmeni)
+        public static int FindAutorByName(string jmeno)
         {
             try
             {
@@ -98,22 +98,79 @@ namespace knihovna
                 int a = -1;
                 if (jmeno != "")
                 {
-                    command += " jmeno = '" + jmeno + "'";
+                    command += "WHERE jmeno = '" + jmeno + "' OR prijmeni = '" + jmeno + "';";
                 }
-                if (prijmeni != "")
-                {
-                    if (command.Length > 3)
-                    {
-                        command += " AND ";
-                    }
-                    command += " prijmeni = '" + prijmeni + "'";
-                }
-                prikaz.CommandText = "SELECT * FROM autori WHERE"+command+";";
+                prikaz.CommandText = "SELECT * FROM autori "+command;
                 using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { a =  Convert.ToInt32(reader["AutorID"]); } }
                 Disconnect();
                 return a;
             }
             catch (Exception ex) { /*MessageBox.Show(ex.Message + "findautorbyname");*/ return -1; }
+        }
+        public static void ZmenZakaznika(string jmeno, string prijmeni, int id)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                prikaz.CommandText = "UPDATE zakaznici SET jmeno = @jmeno, prijmeni = @prijmeni WHERE ZakaznikID = @ZakaznikID";
+                prikaz.Parameters.AddWithValue("@jmeno", jmeno);
+                prikaz.Parameters.AddWithValue("@prijmeni", prijmeni);
+                prikaz.Parameters.AddWithValue("@ZakaznikID", id);
+                prikaz.ExecuteNonQuery();
+                Disconnect();
+                MessageBox.Show("uživatel upraven");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message);}
+        }
+        public static void ZmenKnihu(string nazev, int AutorID, int KnihaID, int ZakaznikID, int ZanrID)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                prikaz.CommandText = "UPDATE knihy SET AutorID = @AutorID, nazev = @nazev, ZanrID = @ZanrID, ZakaznikID = @ZakaznikID WHERE KnihaID = @KnihaID";
+                prikaz.Parameters.AddWithValue("@AutorID", AutorID);
+                prikaz.Parameters.AddWithValue("@nazev", nazev);
+                prikaz.Parameters.AddWithValue("@ZanrID", ZanrID);
+                prikaz.Parameters.AddWithValue("@ZakaznikID", ZakaznikID);
+                prikaz.Parameters.AddWithValue("@KnihaID", KnihaID);
+                prikaz.ExecuteNonQuery();
+                Disconnect();
+                MessageBox.Show("Kniha upravena");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        public static void ZmenAutora(string jmeno, string prijmeni, int id)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                prikaz.CommandText = "UPDATE autori SET jmeno = @jmeno, prijmeni = @prijmeni WHERE AutorID = @AutorID";
+                prikaz.Parameters.AddWithValue("@jmeno", jmeno);
+                prikaz.Parameters.AddWithValue("@prijmeni", prijmeni);
+                prikaz.Parameters.AddWithValue("@AutorID", id);
+                prikaz.ExecuteNonQuery();
+                Disconnect();
+                MessageBox.Show("Autor upraven");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        public static void ZmenZanr(string nazev, int id)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                prikaz.CommandText = "UPDATE zanr SET nazev = @nazev WHERE ZanrID = @id";
+                prikaz.Parameters.AddWithValue("@nazev", nazev);
+                prikaz.Parameters.AddWithValue("@id", id);
+                prikaz.ExecuteNonQuery();
+                Disconnect();
+                MessageBox.Show("Žánr upraven");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
         public static int FindZanrByName(string nazev)
         {
@@ -121,12 +178,13 @@ namespace knihovna
             {
                 Connect();
                 SQLiteCommand prikaz = new SQLiteCommand(Connection);
-                prikaz.CommandText = "SELECT * FROM zanr WHERE nazev = '" + nazev + "';";
-                using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { int a =  Convert.ToInt32(reader["ZanrID"]); } }
+                int a = -1;
+                prikaz.CommandText = "SELECT * FROM zanr WHERE nazev = '" + nazev.ToLower() + "';";
+                using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { a =  Convert.ToInt32(reader["ZanrID"]); } }
                 Disconnect();
-                return -1;
+                return a;
             }
-            catch (Exception ex) { /*MessageBox.Show(ex.Message);*/ return -1; }
+            catch (Exception ex) {/*MessageBox.Show(ex.Message);*/ return -1; }
         }
         public static BindingList<Kniha> FindKniha(int KnihaID, string nazev, int AutorID, int ZanrID, int ZakaznikID)
         {
@@ -253,7 +311,7 @@ namespace knihovna
                 prikaz.ExecuteNonQuery();
                 prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID) VALUES('Harry Potter a kamen mudrcu', 2, 1, 1);";
                 prikaz.ExecuteNonQuery();
-                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID) VALUES('1984', 3, 1,  2);";
+                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID) VALUES('1984', 3, 2,  2);";
                 prikaz.ExecuteNonQuery();
 
 
