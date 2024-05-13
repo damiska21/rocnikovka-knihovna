@@ -15,6 +15,7 @@ namespace knihovna
         public PujceniForm()
         {
             InitializeComponent();
+            this.Text = "Půjčení/Navrácení Knihy";
         }
         BindingList<Kniha> bb = new BindingList<Kniha>();
         BindingList<Kniha> ee = new BindingList<Kniha>();

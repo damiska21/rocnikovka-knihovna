@@ -15,6 +15,7 @@ namespace knihovna
         public ShowTableForm()
         {
             InitializeComponent();
+            this.Text = "Zobrazení Tabulek";
         }
         BindingList<Kniha> knihaDisplayList = new BindingList<Kniha>();
         BindingList<Zakaznik> zakaznikDisplayList = new BindingList<Zakaznik>();
@@ -61,6 +62,11 @@ namespace knihovna
                     SQLClass.ZmenZanr(b.Cells[1].Value.ToString(), Convert.ToInt32(b.Cells[0].Value));
                     break;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //dataGridView1.SelectedRows 
         }
     }
 }

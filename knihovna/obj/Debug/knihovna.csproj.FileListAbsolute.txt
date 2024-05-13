@@ -82,3 +82,4 @@ D:\programko\h\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.exe
 D:\programko\h\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.pdb
 D:\programko\h\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.ShowTableForm.resources
 C:\Users\rohacekd\Documents\GitHub\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.ShowTableForm.resources
+D:\programko\h\rocnikovka-knihovna\knihovna\obj\Debug\knihovna.AddNewForm.resources

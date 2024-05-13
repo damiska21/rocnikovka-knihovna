@@ -12,11 +12,11 @@ namespace knihovna
 {
     public partial class Form1 : Form
     {
-        SQLClass SQLClass = null;
         public Form1()
         {
             InitializeComponent();
-            SQLClass = new SQLClass();
+            SQLClass SQLClass = new SQLClass();
+            this.Text = "Vyberte Funkci";
         }
         //stránky - půjčit/vrátit knihu
         //          přidat knihu/autora/žánr/zákazníka
@@ -38,6 +38,12 @@ namespace knihovna
         {
             ShowTableForm showTableForm = new ShowTableForm();
             showTableForm.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            AddNewForm addNewForm = new AddNewForm();
+            addNewForm.Show();
         }
     }
 }

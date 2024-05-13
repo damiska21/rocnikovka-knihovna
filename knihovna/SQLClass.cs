@@ -41,42 +41,7 @@ namespace knihovna
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-        public static string[] FindZakaznik(string jmeno, string prijmeni, string ZakaznikID)
-        {
-            try
-            {
-                SQLiteCommand prikaz = new SQLiteCommand(Connection);
-                string command = "";
-                if (jmeno != "")
-                {
-                    command += " jmeno='" + jmeno + "'";
-                }
-                if(prijmeni != "")
-                {
-                    if (command.Length > 3)
-                    {
-                        command += " AND ";
-                    }
-                    command += " prijmeni='" + prijmeni + "'";
-                }
-                if (ZakaznikID != "")
-                {
-                    if (command.Length > 3)
-                    {
-                        command += " AND ";
-                    }
-                    command += " ZakaznikID='" + ZakaznikID + "'";
-                }
-                Connect();
-                string[] exitString = new string[3];
-                prikaz.CommandText = "SELECT * FROM zakaznici WHERE" + command+";";
-                using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) {exitString[0] = (string)reader["jmeno"]; exitString[1] = (string)reader["prijmeni"]; exitString[2] = Convert.ToInt64(reader["ZakaznikID"]).ToString();} }
-                Disconnect();
-
-                return exitString;
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message);return null; }
-        }
+        
         public static void KnihaZakaznikEdit(int KnihaID, int ZakaznikID)
         {
             try
@@ -88,25 +53,7 @@ namespace knihovna
                 Disconnect();
             }catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
-        public static int FindAutorByName(string jmeno)
-        {
-            try
-            {
-                Connect();
-                SQLiteCommand prikaz = new SQLiteCommand(Connection);
-                string command = "";
-                int a = -1;
-                if (jmeno != "")
-                {
-                    command += "WHERE jmeno = '" + jmeno + "' OR prijmeni = '" + jmeno + "';";
-                }
-                prikaz.CommandText = "SELECT * FROM autori "+command;
-                using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { a =  Convert.ToInt32(reader["AutorID"]); } }
-                Disconnect();
-                return a;
-            }
-            catch (Exception ex) { /*MessageBox.Show(ex.Message + "findautorbyname");*/ return -1; }
-        }
+        
         public static void ZmenZakaznika(string jmeno, string prijmeni, int id)
         {
             try
@@ -172,6 +119,122 @@ namespace knihovna
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        public static void NewKniha(string nazev, int ZanrID, int AutorID)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID) VALUES(@nazev, @AutorID, @ZanrID, -1);";
+                prikaz.Parameters.AddWithValue("@AutorID", AutorID);
+                prikaz.Parameters.AddWithValue("@nazev", nazev);
+                prikaz.Parameters.AddWithValue("@ZanrID", ZanrID);
+                prikaz.ExecuteNonQuery();
+                Disconnect();
+                MessageBox.Show("Kniha přidána");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        public static void NewAutor(string jmeno, string prijmeni)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                prikaz.CommandText = "INSERT INTO autori(jmeno, prijmeni) VALUES(@jmeno, @prijmeni);";
+                prikaz.Parameters.AddWithValue("@jmeno", jmeno);
+                prikaz.Parameters.AddWithValue("@prijmeni", prijmeni);
+                prikaz.ExecuteNonQuery();
+                Disconnect();
+                MessageBox.Show("Autor přidán!");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        public static void NewZakaznik(string jmeno, string prijmeni)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                prikaz.CommandText = "INSERT INTO zakaznici(jmeno, prijmeni) VALUES(@jmeno, @prijmeni);";
+                prikaz.Parameters.AddWithValue("@jmeno", jmeno);
+                prikaz.Parameters.AddWithValue("@prijmeni", prijmeni);
+                prikaz.ExecuteNonQuery();
+                Disconnect();
+                MessageBox.Show("Zákazník přidán!");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        public static void NewZanr(string nazev)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                prikaz.CommandText = "INSERT INTO zanr(nazev) VALUES(@nazev);";
+                prikaz.Parameters.AddWithValue("@nazev", nazev);
+                prikaz.ExecuteNonQuery();
+                Disconnect();
+                MessageBox.Show("Žánr přidán!");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        #region SELECT A FIND
+        public static string[] FindZakaznik(string jmeno, string prijmeni, string ZakaznikID)
+        {
+            try
+            {
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                string command = "";
+                if (jmeno != "")
+                {
+                    command += " jmeno='" + jmeno + "'";
+                }
+                if (prijmeni != "")
+                {
+                    if (command.Length > 3)
+                    {
+                        command += " AND ";
+                    }
+                    command += " prijmeni='" + prijmeni + "'";
+                }
+                if (ZakaznikID != "")
+                {
+                    if (command.Length > 3)
+                    {
+                        command += " AND ";
+                    }
+                    command += " ZakaznikID='" + ZakaznikID + "'";
+                }
+                Connect();
+                string[] exitString = new string[3];
+                prikaz.CommandText = "SELECT * FROM zakaznici WHERE" + command + ";";
+                using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { exitString[0] = (string)reader["jmeno"]; exitString[1] = (string)reader["prijmeni"]; exitString[2] = Convert.ToInt64(reader["ZakaznikID"]).ToString(); } }
+                Disconnect();
+
+                return exitString;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); return null; }
+        }
+        public static int FindAutorByName(string jmeno)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                string command = "";
+                int a = -1;
+                if (jmeno != "")
+                {
+                    command += "WHERE jmeno = '" + jmeno + "' OR prijmeni = '" + jmeno + "';";
+                }
+                prikaz.CommandText = "SELECT * FROM autori " + command;
+                using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { a = Convert.ToInt32(reader["AutorID"]); } }
+                Disconnect();
+                return a;
+            }
+            catch (Exception ex) { /*MessageBox.Show(ex.Message + "findautorbyname");*/ return -1; }
+        }
         public static int FindZanrByName(string nazev)
         {
             try
@@ -186,6 +249,7 @@ namespace knihovna
             }
             catch (Exception ex) {/*MessageBox.Show(ex.Message);*/ return -1; }
         }
+        
         public static BindingList<Kniha> FindKniha(int KnihaID, string nazev, int AutorID, int ZanrID, int ZakaznikID)
         {
             BindingList<Kniha> list = new BindingList<Kniha>();
@@ -296,6 +360,9 @@ namespace knihovna
             }
             return list;
         }
+        #endregion
+        
+        #region VYTVOŘENÍ DB
         public static void VytvorDatabazi()
         {
             try
@@ -358,5 +425,6 @@ namespace knihovna
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        #endregion
     }
 }
