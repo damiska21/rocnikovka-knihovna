@@ -227,9 +227,9 @@ namespace knihovna
                 if (jmeno != "")
                 {
                     command += "WHERE jmeno = '" + jmeno + "' OR prijmeni = '" + jmeno + "';";
+                    prikaz.CommandText = "SELECT * FROM autori " + command;
+                    using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { a = Convert.ToInt32(reader["AutorID"]); } }
                 }
-                prikaz.CommandText = "SELECT * FROM autori " + command;
-                using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { a = Convert.ToInt32(reader["AutorID"]); } }
                 Disconnect();
                 return a;
             }
@@ -250,55 +250,51 @@ namespace knihovna
             catch (Exception ex) {/*MessageBox.Show(ex.Message);*/ return -1; }
         }
         
+        public static void DeleteIndex(int id, string table)
+        {
+            try
+            {
+                Connect();
+                SQLiteCommand prikaz = new SQLiteCommand(Connection);
+                switch(table)
+                {
+                    case "zakaznici":
+                        prikaz.CommandText = "DELETE FROM zakaznici WHERE ZakaznikID = @id;";
+                        break;
+                    case "knihy":
+                        prikaz.CommandText = "DELETE FROM knihy WHERE KnihaID  = @id;";
+                        break;
+                    case "autori":
+                        prikaz.CommandText = "DELETE FROM autori WHERE AutorID = @id;";
+                        break;
+                    case "zanr":
+                        prikaz.CommandText = "DELETE FROM zanr WHERE ZanrID = @id;";
+                        break;
+                }
+                prikaz.Parameters.AddWithValue("@id", id);
+                prikaz.ExecuteNonQuery();
+                MessageBox.Show("Položka úspěšně smazána!");
+                Disconnect();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message);}
+        }
         public static BindingList<Kniha> FindKniha(int KnihaID, string nazev, int AutorID, int ZanrID, int ZakaznikID)
         {
             BindingList<Kniha> list = new BindingList<Kniha>();
             SQLiteCommand prikaz = new SQLiteCommand(Connection);
             Connect();
-            string command = "";
-            if (KnihaID != -1)
-            {
-                command += " KnihaID='" + KnihaID + "'";
-            }
-            if (nazev != "")
-            {
-                if (command.Length > 3)
-                {
-                    command += " AND ";
-                }
-                command += " nazev='" + nazev + "'";
-            }else
-            {
-                //tohle je na vypsání celý tabulky, přišlo mi to nejsnazší
-                command += " nazev!='" + nazev + "'";
-            }
-            if (AutorID != -1)
-            {
-                if (command.Length > 3)
-                {
-                    command += " AND ";
-                }
-                command += " AutorID='" + AutorID + "'";
-            }
-            if (ZanrID != -1)
-            {
-                if (command.Length > 3)
-                {
-                    command += " AND ";
-                }
-                command += " ZanrID='" + ZanrID + "'";
-            }
-            if (ZakaznikID != -1)
-            {
-                if (command.Length > 3)
-                {
-                    command += " AND ";
-                }
-                command += " ZakaznikID='" + ZakaznikID + "'";
-            }
             try
             {
-                prikaz.CommandText = "SELECT * FROM knihy WHERE " + command + ";";
+                prikaz.CommandText = "SELECT * FROM knihy WHERE KnihaID= @KnihaID OR nazev= @nazev OR AutorID= @AutorID OR ZanrID= @ZanrID OR ZakaznikID= @ZakaznikID;";
+                prikaz.Parameters.AddWithValue("@KnihaID", KnihaID);
+                prikaz.Parameters.AddWithValue("@nazev", nazev);
+                prikaz.Parameters.AddWithValue("@AutorID", AutorID);
+                prikaz.Parameters.AddWithValue("@ZanrID", ZanrID);
+                prikaz.Parameters.AddWithValue("@ZakaznikID", ZakaznikID);
+                if (KnihaID == -1 && nazev == "" && ZanrID == -1 && AutorID == -1 && ZakaznikID == -1)
+                {
+                    prikaz.CommandText = "SELECT * FROM knihy;"; //na display celé tabulky
+                }
                 using (var reader = prikaz.ExecuteReader())
                 {
                     while (reader.Read())
@@ -309,7 +305,7 @@ namespace knihovna
                     
                 }
             }
-            catch { MessageBox.Show("Žádná kniha nebyla nalezena");}
+            catch (Exception ex) { MessageBox.Show(ex.Message); }//{ MessageBox.Show("Žádná kniha nebyla nalezena");}
             return list;
         }
         public static BindingList<Zakaznik> ListZakaznik()

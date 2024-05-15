@@ -59,7 +59,7 @@ namespace knihovna
             {
                 KnihaID = Convert.ToInt32(textBox1.Text);
             }
-            ee = SQLClass.FindKniha(KnihaID, textBox2.Text, AutorID, ZanrID, -1);
+            ee = SQLClass.FindKniha(KnihaID, textBox2.Text, AutorID, ZanrID, -2);
             dataGridView1.DataSource = new BindingSource().DataSource = ee;
         }
 

@@ -66,7 +66,22 @@ namespace knihovna
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //dataGridView1.SelectedRows 
+            //dataGridView1.CurrentCell.RowIndex+1 index
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0:
+                    SQLClass.DeleteIndex(dataGridView1.CurrentCell.RowIndex + 1, "zakaznici");
+                    break;
+                case 1:
+                    SQLClass.DeleteIndex(dataGridView1.CurrentCell.RowIndex + 1, "knihy");
+                    break;
+                case 2:
+                    SQLClass.DeleteIndex(dataGridView1.CurrentCell.RowIndex + 1, "autori");
+                    break;
+                case 3:
+                    SQLClass.DeleteIndex(dataGridView1.CurrentCell.RowIndex + 1, "zanr");
+                    break;
+            }
         }
     }
 }
