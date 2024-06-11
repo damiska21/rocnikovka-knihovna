@@ -41,8 +41,9 @@ namespace knihovna
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-        
-        public static void KnihaZakaznikEdit(int KnihaID, int ZakaznikID)
+
+        #region NEW A CHANGE
+        public static void KnihaZakaznikEdit(int KnihaID, int ZakaznikID, string date)
         {
             try
             {
@@ -50,6 +51,11 @@ namespace knihovna
                 SQLiteCommand prikaz = new SQLiteCommand(Connection);
                 prikaz.CommandText = "UPDATE knihy SET ZakaznikID = " + ZakaznikID + " WHERE KnihaID = " + KnihaID + ";";
                 prikaz.ExecuteNonQuery();
+                if (ZakaznikID != -1)
+                {
+                    prikaz.CommandText = "UPDATE knihy SET pujcenoDo = '" + date + "' WHERE KnihaID = " + KnihaID + ";";
+                    prikaz.ExecuteNonQuery();
+                }
                 Disconnect();
             }catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -70,18 +76,19 @@ namespace knihovna
             }
             catch (Exception ex) { MessageBox.Show(ex.Message);}
         }
-        public static void ZmenKnihu(string nazev, int AutorID, int KnihaID, int ZakaznikID, int ZanrID)
+        public static void ZmenKnihu(string nazev, int AutorID, int KnihaID, int ZakaznikID, int ZanrID, string pujcenoDo)
         {
             try
             {
                 Connect();
                 SQLiteCommand prikaz = new SQLiteCommand(Connection);
-                prikaz.CommandText = "UPDATE knihy SET AutorID = @AutorID, nazev = @nazev, ZanrID = @ZanrID, ZakaznikID = @ZakaznikID WHERE KnihaID = @KnihaID";
+                prikaz.CommandText = "UPDATE knihy SET AutorID = @AutorID, nazev = @nazev, ZanrID = @ZanrID, ZakaznikID = @ZakaznikID, pujcenoDo = @pujcenoDo WHERE KnihaID = @KnihaID";
                 prikaz.Parameters.AddWithValue("@AutorID", AutorID);
                 prikaz.Parameters.AddWithValue("@nazev", nazev);
                 prikaz.Parameters.AddWithValue("@ZanrID", ZanrID);
                 prikaz.Parameters.AddWithValue("@ZakaznikID", ZakaznikID);
                 prikaz.Parameters.AddWithValue("@KnihaID", KnihaID);
+                prikaz.Parameters.AddWithValue("@pujcenoDo", pujcenoDo);
                 prikaz.ExecuteNonQuery();
                 Disconnect();
                 MessageBox.Show("Kniha upravena");
@@ -179,36 +186,37 @@ namespace knihovna
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        #endregion
+
         #region SELECT A FIND
         public static string[] FindZakaznik(string jmeno, string prijmeni, string ZakaznikID)
         {
             try
             {
                 SQLiteCommand prikaz = new SQLiteCommand(Connection);
-                string command = "";
+                prikaz.CommandText = "SELECT * FROM zakaznici WHERE";
                 if (jmeno != "")
                 {
-                    command += " jmeno='" + jmeno + "'";
+                    prikaz.CommandText += " like('%"+jmeno+"%', jmeno)";
                 }
                 if (prijmeni != "")
                 {
-                    if (command.Length > 3)
+                    if (prikaz.CommandText.Length > 30)
                     {
-                        command += " AND ";
+                        prikaz.CommandText += " AND ";
                     }
-                    command += " prijmeni='" + prijmeni + "'";
+                    prikaz.CommandText += " like('%"+prijmeni+"%', prijmeni)";
                 }
                 if (ZakaznikID != "")
                 {
-                    if (command.Length > 3)
+                    if (prikaz.CommandText.Length > 30)
                     {
-                        command += " AND ";
+                        prikaz.CommandText += " AND ";
                     }
-                    command += " ZakaznikID='" + ZakaznikID + "'";
+                    prikaz.CommandText += " ZakaznikID="+ZakaznikID;
                 }
                 Connect();
                 string[] exitString = new string[3];
-                prikaz.CommandText = "SELECT * FROM zakaznici WHERE" + command + ";";
                 using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { exitString[0] = (string)reader["jmeno"]; exitString[1] = (string)reader["prijmeni"]; exitString[2] = Convert.ToInt64(reader["ZakaznikID"]).ToString(); } }
                 Disconnect();
 
@@ -226,7 +234,7 @@ namespace knihovna
                 int a = -1;
                 if (jmeno != "")
                 {
-                    command += "WHERE jmeno = '" + jmeno + "' OR prijmeni = '" + jmeno + "';";
+                    command += "WHERE like('%"+jmeno+ "%', jmeno) OR like('%" + jmeno + "%', prijmeni);";
                     prikaz.CommandText = "SELECT * FROM autori " + command;
                     using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { a = Convert.ToInt32(reader["AutorID"]); } }
                 }
@@ -242,7 +250,7 @@ namespace knihovna
                 Connect();
                 SQLiteCommand prikaz = new SQLiteCommand(Connection);
                 int a = -1;
-                prikaz.CommandText = "SELECT * FROM zanr WHERE nazev = '" + nazev.ToLower() + "';";
+                prikaz.CommandText = "SELECT * FROM zanr WHERE like('%"+ nazev +"%', nazev);";
                 using (var reader = prikaz.ExecuteReader()) { while (reader.Read()) { a =  Convert.ToInt32(reader["ZanrID"]); } }
                 Disconnect();
                 return a;
@@ -299,7 +307,7 @@ namespace knihovna
                 {
                     while (reader.Read())
                     {
-                        list.Add(new Kniha(Convert.ToInt32(reader["KnihaID"]), (string)reader["nazev"], Convert.ToInt32(reader["AutorID"]), Convert.ToInt32(reader["ZanrID"]), Convert.ToInt32(reader["ZakaznikID"])));
+                        list.Add(new Kniha(Convert.ToInt32(reader["KnihaID"]), (string)reader["nazev"], Convert.ToInt32(reader["AutorID"]), Convert.ToInt32(reader["ZanrID"]), Convert.ToInt32(reader["ZakaznikID"]), Convert.ToString(reader["pujcenoDo"])));
                     }
                     Disconnect();
                     
@@ -368,13 +376,13 @@ namespace knihovna
 
                 prikaz.CommandText = "DROP TABLE IF EXISTS knihy;";//id, nazev, id_autora, id_zanr, id_zakaznik(pokud je půjčena)
                 prikaz.ExecuteNonQuery();
-                prikaz.CommandText = "CREATE TABLE knihy(KnihaID INTEGER PRIMARY KEY AUTOINCREMENT, nazev VARCHAR(15), AutorID INTEGER, ZanrID INTEGER, ZakaznikID INTEGER);";
+                prikaz.CommandText = "CREATE TABLE knihy(KnihaID INTEGER PRIMARY KEY AUTOINCREMENT, nazev VARCHAR(15), AutorID INTEGER, ZanrID INTEGER, ZakaznikID INTEGER, pujcenoDo VARCHAR(12));";
                 prikaz.ExecuteNonQuery();
-                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID) VALUES('Zaklinac', 1, 1, 1);";
+                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID, pujcenoDo) VALUES('Zaklinac', 1, 1, 1, '2024-01-12');";
                 prikaz.ExecuteNonQuery();
-                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID) VALUES('Harry Potter a kamen mudrcu', 2, 1, 1);";
+                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID, pujcenoDo) VALUES('Harry Potter a kamen mudrcu', 2, 1, 1, '2024-01-12');";
                 prikaz.ExecuteNonQuery();
-                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID) VALUES('1984', 3, 2,  2);";
+                prikaz.CommandText = "INSERT INTO knihy(nazev, AutorID, ZanrID, ZakaznikID, pujcenoDo) VALUES('1984', 3, 2,  2, '2024-04-12');";
                 prikaz.ExecuteNonQuery();
 
 

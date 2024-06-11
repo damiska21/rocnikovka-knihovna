@@ -14,12 +14,14 @@ namespace knihovna
         public int AutorID { get; set; }
         public int ZanrID { get; set; }
         public int ZakaznikID { get; set; }
-        public Kniha(int KnihaID, string nazev, int AutorID, int ZanrID, int ZakaznikID) { 
+        public string pujcenoDo { get; set; }
+        public Kniha(int KnihaID, string nazev, int AutorID, int ZanrID, int ZakaznikID, string pujcenoDo) { 
             this.KnihaID = KnihaID;
             this.nazev = nazev;
             this.AutorID = AutorID;
             this.ZanrID = ZanrID;
             this.ZakaznikID = ZakaznikID; 
+            this.pujcenoDo = pujcenoDo;
         }
     }
 }

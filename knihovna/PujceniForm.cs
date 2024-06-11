@@ -22,20 +22,25 @@ namespace knihovna
         //vyhledat zákazníka
         private void button1_Click(object sender, EventArgs e)
         {
-            string[] exit = SQLClass.FindZakaznik(textBox4.Text, textBox3.Text, textBox5.Text);
-            button1.Text = "Uživatel nalezen!";
-            textBox4.Text = exit[0];
-            textBox3.Text = exit[1];
-            textBox5.Text = exit[2];
-            bb = SQLClass.FindKniha(-1,"", -1, -1, Convert.ToInt32(exit[2]));
-            dataGridView2.DataSource = new BindingSource().DataSource = bb;
+            try
+            {
+                string[] exit = SQLClass.FindZakaznik(textBox4.Text, textBox3.Text, textBox5.Text);
+                button1.Text = "Uživatel nalezen!";
+                textBox4.Text = exit[0];
+                textBox3.Text = exit[1];
+                textBox5.Text = exit[2];
+                bb = SQLClass.FindKniha(-1, "", -1, -1, Convert.ToInt32(exit[2]));
+                dataGridView2.DataSource = new BindingSource().DataSource = bb;
+            }
+            catch { MessageBox.Show("Nastala chyba při vyhledávání uživatele.");}
+            
         }
 
         //vrátit knihu
         private void button2_Click(object sender, EventArgs e)
         {
             MessageBox.Show(dataGridView2.CurrentCell.RowIndex.ToString());
-            SQLClass.KnihaZakaznikEdit(bb[(dataGridView2.CurrentCell.RowIndex)].KnihaID, -1);
+            SQLClass.KnihaZakaznikEdit(bb[(dataGridView2.CurrentCell.RowIndex)].KnihaID, -1, "");
             MessageBox.Show("Kniha úspěšně navrácena!");
             bb.RemoveAt(dataGridView2.CurrentCell.RowIndex);
         }
@@ -66,7 +71,8 @@ namespace knihovna
         //půjčit knihu
         private void button4_Click(object sender, EventArgs e)
         {
-            SQLClass.KnihaZakaznikEdit(ee[(dataGridView1.CurrentCell.RowIndex)].KnihaID, Convert.ToInt32(textBox5.Text));
+            string borrowDate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
+            SQLClass.KnihaZakaznikEdit(ee[(dataGridView1.CurrentCell.RowIndex)].KnihaID, Convert.ToInt32(textBox5.Text), borrowDate);
             MessageBox.Show("Kniha úspěšně půjčena!");
         }
     }

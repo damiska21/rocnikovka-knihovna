@@ -53,7 +53,7 @@ namespace knihovna
                     SQLClass.ZmenZakaznika(b.Cells[1].Value.ToString(), b.Cells[2].Value.ToString(), Convert.ToInt32(b.Cells[0].Value));
                     break;
                 case 1:
-                    SQLClass.ZmenKnihu(b.Cells[1].Value.ToString(), Convert.ToInt32(b.Cells[2].Value), Convert.ToInt32(b.Cells[0].Value), Convert.ToInt32(b.Cells[4].Value), Convert.ToInt32(b.Cells[3].Value));
+                    SQLClass.ZmenKnihu(b.Cells[1].Value.ToString(), Convert.ToInt32(b.Cells[2].Value), Convert.ToInt32(b.Cells[0].Value), Convert.ToInt32(b.Cells[4].Value), Convert.ToInt32(b.Cells[3].Value), b.Cells[5].Value.ToString());
                     break;
                 case 2:
                     SQLClass.ZmenAutora(b.Cells[1].Value.ToString(), b.Cells[2].Value.ToString(), Convert.ToInt32(b.Cells[0].Value));
@@ -70,16 +70,24 @@ namespace knihovna
             switch (comboBox1.SelectedIndex)
             {
                 case 0:
+                    zakaznikDisplayList = SQLClass.ListZakaznik();
+                    dataGridView1.DataSource = new BindingSource().DataSource = zakaznikDisplayList;
                     SQLClass.DeleteIndex(dataGridView1.CurrentCell.RowIndex + 1, "zakaznici");
                     break;
                 case 1:
                     SQLClass.DeleteIndex(dataGridView1.CurrentCell.RowIndex + 1, "knihy");
+                    knihaDisplayList = SQLClass.FindKniha(-1, "", -1, -1, -1);
+                    dataGridView1.DataSource = new BindingSource().DataSource = knihaDisplayList;
                     break;
                 case 2:
                     SQLClass.DeleteIndex(dataGridView1.CurrentCell.RowIndex + 1, "autori");
+                    autorDisplayList = SQLClass.ListAutor();
+                    dataGridView1.DataSource = new BindingSource().DataSource = autorDisplayList;
                     break;
                 case 3:
                     SQLClass.DeleteIndex(dataGridView1.CurrentCell.RowIndex + 1, "zanr");
+                    zanrDisplayList = SQLClass.ListZanr();
+                    dataGridView1.DataSource = new BindingSource().DataSource = zanrDisplayList;
                     break;
             }
         }
