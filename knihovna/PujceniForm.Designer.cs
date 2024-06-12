@@ -56,23 +56,29 @@
             // 
             // textBox3
             // 
+            this.textBox3.BackColor = System.Drawing.Color.Teal;
+            this.textBox3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox3.Location = new System.Drawing.Point(270, 39);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(123, 20);
+            this.textBox3.Size = new System.Drawing.Size(123, 23);
             this.textBox3.TabIndex = 3;
             // 
             // textBox4
             // 
+            this.textBox4.BackColor = System.Drawing.Color.Teal;
+            this.textBox4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox4.Location = new System.Drawing.Point(141, 39);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(123, 20);
+            this.textBox4.Size = new System.Drawing.Size(123, 23);
             this.textBox4.TabIndex = 4;
             // 
             // textBox5
             // 
+            this.textBox5.BackColor = System.Drawing.Color.Teal;
+            this.textBox5.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox5.Location = new System.Drawing.Point(12, 39);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(123, 20);
+            this.textBox5.Size = new System.Drawing.Size(123, 23);
             this.textBox5.TabIndex = 5;
             // 
             // label1
@@ -86,12 +92,14 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.Teal;
+            this.button1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button1.Location = new System.Drawing.Point(399, 39);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(123, 23);
             this.button1.TabIndex = 7;
             this.button1.Text = "Vyhledat";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
@@ -136,50 +144,62 @@
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.Teal;
+            this.button2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button2.Location = new System.Drawing.Point(451, 84);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(71, 111);
             this.button2.TabIndex = 12;
             this.button2.Text = "Navrátit označenou knihu";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.Teal;
+            this.textBox1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox1.Location = new System.Drawing.Point(12, 237);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(92, 20);
+            this.textBox1.Size = new System.Drawing.Size(92, 23);
             this.textBox1.TabIndex = 13;
             // 
             // textBox2
             // 
+            this.textBox2.BackColor = System.Drawing.Color.Teal;
+            this.textBox2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox2.Location = new System.Drawing.Point(109, 237);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(92, 20);
+            this.textBox2.Size = new System.Drawing.Size(92, 23);
             this.textBox2.TabIndex = 14;
             // 
             // textBox6
             // 
+            this.textBox6.BackColor = System.Drawing.Color.Teal;
+            this.textBox6.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox6.Location = new System.Drawing.Point(206, 237);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(92, 20);
+            this.textBox6.Size = new System.Drawing.Size(92, 23);
             this.textBox6.TabIndex = 15;
             // 
             // textBox7
             // 
+            this.textBox7.BackColor = System.Drawing.Color.Teal;
+            this.textBox7.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox7.Location = new System.Drawing.Point(302, 237);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(92, 20);
+            this.textBox7.Size = new System.Drawing.Size(92, 23);
             this.textBox7.TabIndex = 16;
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.Teal;
+            this.button3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button3.Location = new System.Drawing.Point(399, 235);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(123, 23);
             this.button3.TabIndex = 17;
             this.button3.Text = "Vyhledat";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label5
@@ -233,16 +253,20 @@
             // 
             // button4
             // 
+            this.button4.BackColor = System.Drawing.Color.Teal;
+            this.button4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button4.Location = new System.Drawing.Point(451, 289);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(71, 111);
             this.button4.TabIndex = 24;
             this.button4.Text = "Půjčit označenou knihu výše označenému uživateli";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.CalendarMonthBackground = System.Drawing.Color.Cyan;
+            this.dateTimePicker1.CalendarTitleBackColor = System.Drawing.Color.Cyan;
             this.dateTimePicker1.Location = new System.Drawing.Point(322, 263);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
@@ -252,6 +276,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(537, 437);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.button4);

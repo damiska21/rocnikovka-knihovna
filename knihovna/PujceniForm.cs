@@ -22,9 +22,11 @@ namespace knihovna
         //vyhledat zákazníka
         private void button1_Click(object sender, EventArgs e)
         {
-            try
+            
+            string[] exit = SQLClass.FindZakaznik(textBox4.Text, textBox3.Text, textBox5.Text);
+            button1.Text = "Uživatel nenalezen!";
+            if (exit != null)
             {
-                string[] exit = SQLClass.FindZakaznik(textBox4.Text, textBox3.Text, textBox5.Text);
                 button1.Text = "Uživatel nalezen!";
                 textBox4.Text = exit[0];
                 textBox3.Text = exit[1];
@@ -32,8 +34,6 @@ namespace knihovna
                 bb = SQLClass.FindKniha(-1, "", -1, -1, Convert.ToInt32(exit[2]));
                 dataGridView2.DataSource = new BindingSource().DataSource = bb;
             }
-            catch { MessageBox.Show("Nastala chyba při vyhledávání uživatele.");}
-            
         }
 
         //vrátit knihu

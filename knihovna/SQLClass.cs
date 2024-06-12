@@ -293,9 +293,9 @@ namespace knihovna
             Connect();
             try
             {
-                prikaz.CommandText = "SELECT * FROM knihy WHERE KnihaID= @KnihaID OR nazev= @nazev OR AutorID= @AutorID OR ZanrID= @ZanrID OR ZakaznikID= @ZakaznikID;";
+                if (nazev == ""){nazev = "thats kinda sus not gonna lie";}
+                prikaz.CommandText = "SELECT * FROM knihy WHERE KnihaID= @KnihaID OR like('%"+nazev+"%', nazev) OR AutorID= @AutorID OR ZanrID= @ZanrID OR ZakaznikID= @ZakaznikID;";
                 prikaz.Parameters.AddWithValue("@KnihaID", KnihaID);
-                prikaz.Parameters.AddWithValue("@nazev", nazev);
                 prikaz.Parameters.AddWithValue("@AutorID", AutorID);
                 prikaz.Parameters.AddWithValue("@ZanrID", ZanrID);
                 prikaz.Parameters.AddWithValue("@ZakaznikID", ZakaznikID);
